@@ -12,6 +12,22 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'blog-about' %}">About</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog-posts' %}">Posts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog-createpost' %}">Create Posts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog-register' %}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog-login' %}">Login</a>
+          </li>
+          <span class="nav-link float-end">Hello, {{ request.user }}</span>
+          <li class="nav-item">
+            <a class="nav-link float-end" href="{% url 'blog-logout' %}">Logout</a>
+          </li>
         </ul>
       </div>
     </div>

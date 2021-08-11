@@ -1,4 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
+# import models (so we can query from database)
+from .models import Post
+
+# import forms (so we can display it in our template)
+from .forms import PostForm, UserForm
+
+# import extra functionality: (authentication/login/logout/messages)
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -24,3 +34,44 @@ def index(request):
 def aboutPage(request):
     return render(request, 'blog/about.html')
 
+def posts(request):
+    posts = Post.objects.all()
+
+    context = {
+        'posts': posts,
+        'page_title': 'WELCOME TO MY BLOG'
+    }
+    return render(request, 'blog/posts.html', context)
+
+def createPost(request):
+    form = PostForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    context = {
+        'form': form
+    }
+    return render(request, 'blog/createpost.html', context)
+
+def registerPage(request):
+    form = UserForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    context = {'form': form}
+    return render(request, 'blog/register.html', context)
+
+def loginPage(request):
+    if request.method == "POST":
+        username = request.POST.get("username") # comes from name attribuet in html input tag
+        password = request.POST.get("password1")
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            print(f'{user} is logged in!')
+            return redirect('blog-index')
+    return render(request, 'blog/login.html')
+
+def logoutUser(request):
+    logout(request)
+    return redirect('blog-login')
