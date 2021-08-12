@@ -15,19 +15,25 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'blog-posts' %}">Posts</a>
           </li>
+
+          {% if request.user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'blog-createpost' %}">Create Posts</a>
           </li>
+          <span class="nav-link float-end">Hello, {{ request.user }}</span>
+          <li class="nav-item">
+            <a class="nav-link float-end" href="{% url 'blog-logout' %}">Logout</a>
+          </li>
+
+          {% else %}
+
           <li class="nav-item">
             <a class="nav-link" href="{% url 'blog-register' %}">Register</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'blog-login' %}">Login</a>
           </li>
-          <span class="nav-link float-end">Hello, {{ request.user }}</span>
-          <li class="nav-item">
-            <a class="nav-link float-end" href="{% url 'blog-logout' %}">Logout</a>
-          </li>
+          {% endif %}
         </ul>
       </div>
     </div>

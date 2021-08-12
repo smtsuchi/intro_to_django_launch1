@@ -1,18 +1,22 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-
-<form method="POST">
-    {% csrf_token %}
-    <p>
-        <label for="id_username">Username:</label>
-        <input type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">
-    </p>
-    <p>
-        <label for="id_password1">Password</label>
-        <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1">
-    </p>
-    <input type="submit" value="Submit">
-</form>
-
-
+<div class="form-border-box">
+    <h2>Login</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_username" class="form-label">Username :</label>
+            <input type="text" name="username" maxlength="150" class="form-control" id="id_username">
+        </div>
+        <div class="mb-3">
+            <label for="id_password1" class="form-label">Password :</label>
+            <input type="password" name="password1" autocomplete="new-password" required="" class="form-control" id="id_password1">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
+</div>
+{% for message in messages %}
+<p class="messages {{ message.tags }}">{{ message }}</p>
+{% endfor %}
+<div class="mt-2 text-center">Don't have an account? <a class="text-decoration-none" href="{% url 'blog-register' %}">Sign up</a></div>
 {% endblock %}
