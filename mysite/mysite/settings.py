@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-d=en1xpc9u!@jsml(ei=wkp9q6yc2f$6!ulzi&=nr&t9va#0@%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'launch1-blog.heroku.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'shoha-django-blog-launch1.herokuapp.com']
 
 
 # Application definition
