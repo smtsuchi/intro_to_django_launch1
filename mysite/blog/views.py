@@ -106,3 +106,36 @@ def loginPage(request):
 def logoutUser(request):
     logout(request)
     return redirect('blog-login')
+
+def individualPost(request,post_id):
+    post = Post.objects.get(id=post_id)
+    context = {'p':post}
+    return render(request, 'blog/individualpost.html', context)
+
+@login_required(login_url='blog-login')
+def updatePost(request, post_id):
+    post =Post.objects.get(id=post_id)
+    print(request.user.is_superuser)
+    if post.author.id != request.user.id:
+            messages.info(request, "You cannot update another user's post!")
+            return redirect('blog-posts')
+    form = PostForm(instance=post)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "You have successfully updated your post")
+        return redirect('blog-individualpost', post_id=post_id)
+
+    context = {'form': form}
+    return render(request, 'blog/updatepost.html', context)
+
+@login_required(login_url='blog-login')
+def deletePost(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if post.author.id != request.user.id:
+        messages.info(request, "You cannot delete another user's post!")
+        return redirect('blog-posts')
+    post.delete()
+    messages.success(request, "The post was successfully deleted")
+    return redirect('blog-posts')
