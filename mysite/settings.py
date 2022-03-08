@@ -153,5 +153,8 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication'
-    ]
+    ],
+    # "DEFAULT_PERMISSION_CLASSES": [
+    #     'rest_framework.permissions.IsAuthenticated'
+    # ]
 }
